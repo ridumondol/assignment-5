@@ -5,7 +5,6 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
@@ -25,9 +24,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar fixed top-0 w-full z-50 bg-base-100 shadow-sm px-3 sm:px-6 h-20 grid grid-cols-2 lg:grid-cols-3 items-center">
-      {/* Mobile Menu Toggle & Logo */}
       <div className="flex items-center justify-start w-full">
-        {/* Dropdown for Mobile / Tablet */}
         <div className="dropdown lg:hidden mr-2" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -110,7 +107,6 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Logo */}
         <div className="flex items-center">
           <a
             href="#home"
@@ -125,7 +121,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Desktop Menu (লোগো এবং ডানপাশের বাটনের ঠিক মাঝখানে সেন্টারে থাকবে) */}
       <div className="hidden lg:flex items-center justify-center w-full">
         <ul className="menu menu-horizontal gap-6">
           <li>
@@ -171,7 +166,6 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Buttons */}
       <div className="flex items-center justify-end w-full gap-2 sm:gap-3">
         <button
           className="
