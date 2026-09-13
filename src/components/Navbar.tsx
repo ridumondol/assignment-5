@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-
 import logoText from "../assets/logo-text.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close mobile menu when clicking outside
@@ -26,11 +24,11 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="navbar fixed top-0 w-full z-50 bg-base-100 shadow-sm px-3 sm:px-6 h-20">
+    <nav className="navbar fixed top-0 w-full z-50 bg-base-100 shadow-sm px-3 sm:px-6 h-20 grid grid-cols-2 lg:grid-cols-3 items-center">
       {/* Mobile Menu Toggle & Logo */}
-      <div className="navbar-start w-auto">
+      <div className="flex items-center justify-start w-full">
         {/* Dropdown for Mobile / Tablet */}
-        <div className="dropdown lg:hidden" ref={dropdownRef}>
+        <div className="dropdown lg:hidden mr-2" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="btn btn-ghost text-[#263247] p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
@@ -72,7 +70,6 @@ const Navbar = () => {
                   Home
                 </a>
               </li>
-
               <li>
                 <a
                   href="#technologies"
@@ -82,7 +79,6 @@ const Navbar = () => {
                   Technologies
                 </a>
               </li>
-
               <li>
                 <a
                   href="#projects"
@@ -92,7 +88,6 @@ const Navbar = () => {
                   Projects
                 </a>
               </li>
-
               <li>
                 <a
                   href="#about"
@@ -102,7 +97,6 @@ const Navbar = () => {
                   About
                 </a>
               </li>
-
               <li>
                 <a
                   href="#contact"
@@ -117,7 +111,7 @@ const Navbar = () => {
         </div>
 
         {/* Logo */}
-        <div className="flex items-center ml-1 sm:ml-2">
+        <div className="flex items-center">
           <a
             href="#home"
             className="w-28 sm:w-36 h-12 sm:h-14 flex items-center justify-center"
@@ -131,49 +125,45 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Desktop Menu */}
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal gap-2">
+      {/* Desktop Menu (লোগো এবং ডানপাশের বাটনের ঠিক মাঝখানে সেন্টারে থাকবে) */}
+      <div className="hidden lg:flex items-center justify-center w-full">
+        <ul className="menu menu-horizontal gap-6">
           <li>
             <a
               href="#home"
-              className="text-[#df187c] font-semibold hover:text-[#c9146e] bg-transparent text-[16px]"
+              className="text-[#df187c] font-semibold hover:text-[#c9146e] bg-transparent text-[16px] p-0"
             >
               Home
             </a>
           </li>
-
           <li>
             <a
               href="#technologies"
-              className="text-[#263247] hover:text-[#df187c] bg-transparent text-[16px]"
+              className="text-[#263247] hover:text-[#df187c] bg-transparent text-[16px] p-0"
             >
               Technologies
             </a>
           </li>
-
           <li>
             <a
               href="#projects"
-              className="text-[#263247] hover:text-[#df187c] bg-transparent text-[16px]"
+              className="text-[#263247] hover:text-[#df187c] bg-transparent text-[16px] p-0"
             >
               Projects
             </a>
           </li>
-
           <li>
             <a
               href="#about"
-              className="text-[#263247] hover:text-[#df187c] bg-transparent text-[16px]"
+              className="text-[#263247] hover:text-[#df187c] bg-transparent text-[16px] p-0"
             >
               About
             </a>
           </li>
-
           <li>
             <a
               href="#contact"
-              className="text-[#263247] hover:text-[#df187c] bg-transparent text-[16px]"
+              className="text-[#263247] hover:text-[#df187c] bg-transparent text-[16px] p-0"
             >
               Contact
             </a>
@@ -182,7 +172,7 @@ const Navbar = () => {
       </div>
 
       {/* Buttons */}
-      <div className="navbar-end w-auto ml-auto gap-2 sm:gap-3">
+      <div className="flex items-center justify-end w-full gap-2 sm:gap-3">
         <button
           className="
             bg-transparent
