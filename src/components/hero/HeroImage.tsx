@@ -1,4 +1,5 @@
 import React from 'react';
+import bannerStack from '../../assets/banner-stack.png';
 
 interface HeroImageProps {
   imageSrc?: string;
@@ -6,7 +7,7 @@ interface HeroImageProps {
 }
 
 export const HeroImage: React.FC<HeroImageProps> = ({
-  imageSrc = "/src/assets/banner-stack.png",
+  imageSrc = bannerStack,
   altText = "3D Layered Development Stack Graphic",
 }) => {
   return (
