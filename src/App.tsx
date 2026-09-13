@@ -1,122 +1,186 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
+import TechCard from "./components/TechCard";
+import SidebarStack from "./components/SidebarStack";
+import Footer from "./components/Footer";
+
+import type { Technology } from "./data/technologies";
+import { TECHNOLOGIES } from "./data/technologies";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedTechs, setSelectedTechs] = useState<Technology[]>([]);
+  const [technologies, setTechnologies] = useState<Technology[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Load technologies with a simulated loading state
+  useEffect(() => {
+    let isMounted = true;
+    
+    const fetchTechnologies = async () => {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 400));
+        if (isMounted) {
+          setTechnologies(TECHNOLOGIES);
+        }
+      } catch (error) {
+        console.error("Error loading technologies:", error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchTechnologies();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Explore button
+  const handleExploreClick = () => {
+    const techSection = document.getElementById("technologies");
+
+    techSection?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  // Add / Remove technology (Fixed: side-effect kept outside state setter)
+  const handleToggleTech = (tech: Technology) => {
+    const alreadySelected = selectedTechs.some(
+      (item) => item.id === tech.id
+    );
+
+    if (alreadySelected) {
+      setSelectedTechs((prev) => prev.filter((item) => item.id !== tech.id));
+      toast.success(`${tech.name} removed from your stack!`, {
+        toastId: `tech-${tech.id}`,
+      });
+    } else {
+      setSelectedTechs((prev) => [...prev, tech]);
+      toast.success(`${tech.name} added to your stack!`, {
+        toastId: `tech-${tech.id}`,
+      });
+    }
+  };
+
+  // Remove one technology from Sidebar (Fixed)
+  const handleRemoveTech = (id: string) => {
+    const tech = selectedTechs.find(
+      (item) => item.id === id
+    );
+
+    if (tech) {
+      setSelectedTechs((prev) =>
+        prev.filter((item) => item.id !== id)
+      );
+      toast.success(`${tech.name} removed from your stack!`, {
+        toastId: `tech-${tech.id}`,
+      });
+    }
+  };
+
+  // Remove all
+  const handleClearAll = () => {
+    if (selectedTechs.length === 0) {
+      toast.warning("Your stack is already empty!", {
+        toastId: "clear-empty",
+      });
+      return;
+    }
+
+    setSelectedTechs([]);
+
+    toast.success("All technologies removed from your stack!", {
+      toastId: "clear-all",
+    });
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+    <div className="min-h-screen bg-base-100 text-base-content flex flex-col justify-between">
+      <Navbar />
+
+      <main className="flex-1 pt-16">
+        <HeroSection
+          onExploreClick={handleExploreClick}
+          onLearnMoreClick={() => console.log("Learn More")}
+        />
+
+        <section
+          id="technologies"
+          className="max-w-7xl mx-auto px-6 py-12 border-t border-base-200"
         >
-          Count is {count}
-        </button>
-      </section>
+          {/* Heading */}
+          <div className="mb-8">
+            <h2 className="text-3xl font-extrabold tracking-tight">
+              Explore{" "}
+              <span className="bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+                Technologies
+              </span>
+            </h2>
 
-      <div className="ticks"></div>
+            <p className="text-xs sm:text-sm text-base-content/60 mt-1">
+              Pick one technology per category to build your ideal stack.
+            </p>
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          {/* Main Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Technology Cards / Loading State */}
+            {isLoading ? (
+              <div className="lg:col-span-8 flex flex-col items-center justify-center py-24">
+                <span className="loading loading-spinner loading-lg text-pink-500"></span>
+                <p className="text-xs sm:text-sm text-base-content/60 mt-3 animate-pulse">
+                  Loading technologies...
+                </p>
+              </div>
+            ) : (
+              <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {technologies.map((tech) => (
+                  <TechCard
+                    key={tech.id}
+                    tech={tech}
+                    isSelected={selectedTechs.some(
+                      (item) => item.id === tech.id
+                    )}
+                    onToggleSelect={handleToggleTech}
+                  />
+                ))}
+              </div>
+            )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+            {/* Sidebar */}
+            <div className="lg:col-span-4">
+              <SidebarStack
+                selectedTechs={selectedTechs}
+                onRemoveTech={handleRemoveTech}
+                onClearAll={handleClearAll}
+              />
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+
+      {/* React Toastify */}
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="light"
+      />
+    </div>
+  );
 }
 
-export default App
+export default App;
