@@ -1,32 +1,43 @@
-# React + TypeScript + Vite
+# 🚀 DevStack Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A modern and responsive web application that helps users build
+their own technology stack by selecting the technologies they want
+to learn or use in their development journey.
 
-Currently, two official plugins are available:
+## 🌐 Live Website
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 [Visit DevStack Builder](https://my-devstack-builder.netlify.app/)
 
-## React Compiler
+## 📂 GitHub Repository
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🔗 [View Source Code](https://github.com/ridumondol/assignment-5)
 
-## Expanding the Oxlint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+- Responsive design for mobile, tablet, and desktop
+- Browse different web development technologies
+- Select technologies to build a personalized stack
+- View selected technologies in a dedicated section
+- Remove technologies from the selected stack
+- Interactive user interface
+- Loading state for a better user experience
+- Toast notifications for user actions
+- Modern and clean design
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+## 🛠️ Technologies Used
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Toastify
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+
+## 📦 Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/ridumondol/assignment-5.git
