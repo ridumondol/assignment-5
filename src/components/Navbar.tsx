@@ -1,19 +1,28 @@
 import { useState, useEffect, useRef } from "react";
+
 import logoText from "../assets/logo-text.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close mobile menu when clicking outside
   useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
   }, []);
 
   return (
@@ -63,6 +72,7 @@ const Navbar = () => {
                   Home
                 </a>
               </li>
+
               <li>
                 <a
                   href="#technologies"
@@ -72,6 +82,7 @@ const Navbar = () => {
                   Technologies
                 </a>
               </li>
+
               <li>
                 <a
                   href="#projects"
@@ -81,6 +92,7 @@ const Navbar = () => {
                   Projects
                 </a>
               </li>
+
               <li>
                 <a
                   href="#about"
@@ -90,6 +102,7 @@ const Navbar = () => {
                   About
                 </a>
               </li>
+
               <li>
                 <a
                   href="#contact"
@@ -105,7 +118,10 @@ const Navbar = () => {
 
         {/* Logo */}
         <div className="flex items-center ml-1 sm:ml-2">
-          <a href="#home" className="w-28 sm:w-36 h-12 sm:h-14 flex items-center justify-center">
+          <a
+            href="#home"
+            className="w-28 sm:w-36 h-12 sm:h-14 flex items-center justify-center"
+          >
             <img
               src={logoText}
               alt="DevStack Logo"
@@ -126,6 +142,7 @@ const Navbar = () => {
               Home
             </a>
           </li>
+
           <li>
             <a
               href="#technologies"
@@ -134,6 +151,7 @@ const Navbar = () => {
               Technologies
             </a>
           </li>
+
           <li>
             <a
               href="#projects"
@@ -142,6 +160,7 @@ const Navbar = () => {
               Projects
             </a>
           </li>
+
           <li>
             <a
               href="#about"
@@ -150,6 +169,7 @@ const Navbar = () => {
               About
             </a>
           </li>
+
           <li>
             <a
               href="#contact"
@@ -161,7 +181,7 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Buttons (Responsive scaling for Mobile & Desktop) */}
+      {/* Buttons */}
       <div className="navbar-end w-auto ml-auto gap-2 sm:gap-3">
         <button
           className="
